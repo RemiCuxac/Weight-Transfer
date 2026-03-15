@@ -278,7 +278,7 @@ class WeightTransferModel:
             cmds.undo()
 
     @staticmethod
-    def get_orig_shape(component: Component) -> str:
+    def get_shape_orig(component: Component) -> str:
         """Finds the original geometry shape node for a transform."""
         shape_orig: list[str] = cmds.deformableShape(component.object, originalGeometry=True)
         if shape_orig != [""]:
@@ -385,7 +385,7 @@ class WeightTransferModel:
         assert len(selection) == 1, "Please select one object."
         component.object = selection[0]
         assert cmds.findDeformers(component.object), "No deformer found on your object."
-        component.object_shape = self.get_orig_shape(component)
+        component.object_shape = self.get_shape_orig(component)
         component.vertex_count = self.get_vertex_count(component)
         component.deformer_dict = self.get_deformer_dict(component)
         return component
